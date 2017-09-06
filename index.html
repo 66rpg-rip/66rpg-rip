@@ -7,9 +7,56 @@
     background-repeat: no-repeat;
     background-position: center
   }
+  .bottom{
+    position:fixed;
+    bottom:0px;
+    width:100%;
+  }
+  .describe{
+    text-align: center;
+    color:#ffffff;
+  }
 </style>
 
-<body>
+<script>
+  var estimatedDeath = new Date(Date.UTC(2017, 8, 30, 16, 0, 0)); // 2017/10/1 for utc+8
+  function updateTime(){
+    var currentTime = new Date();
+    var diff = estimatedDeath - currentTime;
+    var sec = diff / 1000;
+    var minute = sec / 60;
+    var hour = minute / 60;
+    var day = hour / 24;
+    var text = "";
+    if (sec >= 1) {
+      text = "仅剩 " + Math.floor(sec) + " 秒";
+    }
+    if (minute >= 1) {
+      text = "仅剩 " + Math.floor(minute) + " 分钟";
+    }
+    if (hour >= 1) {
+      text = "还有 " + Math.floor(hour) + " 小时";
+    }
+    if (day >= 1) {
+      text = "还有 " + Math.floor(day) + " 天";
+    }
+    
+    document.getElementById("cutdown").innerText = text;
+    setTimeout(updateTime, 1000);
+  }
+  
+  function startTime(){
+    updateTime();
+  }
+</script>
+
+<body onload="startTime()">
+  <div class="bottom">
+    <div class="describe">
+        <p>2005/6/25 - 2017/9/?</p>
+      <p>预计死亡时间： <span id="cutdown"></span></p>
+    </div>
+  </div>
   <a href="https://github.com/66rpg-rip/66rpg-rip" class="github-corner" aria-label="View source on Github">
     <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;"
       aria-hidden="true">
